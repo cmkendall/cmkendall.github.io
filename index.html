@@ -3,10 +3,586 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Chase's website</title>
+    <meta name="description" content="The working index of Chase Kendall — projects, notes, and experiments.">
+    <title>Chase Kendall — Working Index</title>
+    <link rel="preconnect" href="https://api.fontshare.com">
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,600&display=swap">
+    <style>
+      :root {
+        --paper: #f2f1ec;
+        --ink: #111315;
+        --blue: #add8f2;
+        --blue-dark: #78bce7;
+        --line: rgba(17, 19, 21, 0.22);
+        --pad: clamp(18px, 2.2vw, 34px);
+      }
+
+      * { box-sizing: border-box; }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 62px;
+        background: var(--paper);
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background-color: var(--paper);
+        background-image:
+          linear-gradient(to right, rgba(17, 19, 21, 0.055) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(17, 19, 21, 0.055) 1px, transparent 1px);
+        background-size: 48px 48px;
+        font-family: "Switzer", "Helvetica Neue", Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.35;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      a:focus-visible {
+        outline: 2px solid var(--blue-dark);
+        outline-offset: 4px;
+      }
+
+      .site-header {
+        position: sticky;
+        z-index: 10;
+        top: 0;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        min-height: 62px;
+        padding: 0 var(--pad);
+        border-bottom: 1px solid var(--ink);
+        background: rgba(242, 241, 236, 0.92);
+        backdrop-filter: blur(12px);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .wordmark { justify-self: start; }
+
+      .site-nav {
+        display: flex;
+        justify-self: end;
+        gap: clamp(16px, 2vw, 32px);
+      }
+
+      .site-nav a,
+      .text-link {
+        position: relative;
+      }
+
+      .site-nav a::after,
+      .text-link::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        bottom: -3px;
+        left: 0;
+        height: 1px;
+        background: currentColor;
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 180ms ease;
+      }
+
+      .site-nav a:hover::after,
+      .text-link:hover::after {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+
+      .site-nav a[aria-current="page"]::after {
+        transform: scaleX(1);
+      }
+
+      .hero {
+        position: relative;
+        min-height: calc(100svh - 62px);
+        padding: var(--pad);
+        overflow: hidden;
+        border-bottom: 1px solid var(--ink);
+      }
+
+      .hero-field {
+        position: absolute;
+        inset: 0 0 0 38%;
+        display: grid;
+        grid-template-columns: 1.45fr 0.55fr;
+        grid-template-rows: 1fr 0.42fr;
+        border-left: 1px solid var(--ink);
+      }
+
+      .color-block {
+        position: relative;
+        border-right: 1px solid var(--ink);
+        border-bottom: 1px solid var(--ink);
+      }
+
+      .color-block--blue {
+        grid-row: 1 / 3;
+        background-color: var(--blue);
+        background-image:
+          linear-gradient(to right, rgba(17, 19, 21, 0.12) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(17, 19, 21, 0.12) 1px, transparent 1px);
+        background-size: 48px 48px;
+      }
+
+      .color-block--paper { background: #dfe4e6; }
+      .color-block--ink { background: var(--ink); }
+
+      .color-block--blue::after {
+        content: "+   +   +";
+        position: absolute;
+        right: 24px;
+        top: 20px;
+        font-size: 10px;
+        letter-spacing: 0.65em;
+      }
+
+      .hero-title {
+        position: relative;
+        z-index: 1;
+        margin: 10vh 0 0;
+        max-width: 8ch;
+        font-size: clamp(78px, 13.6vw, 224px);
+        font-weight: 500;
+        letter-spacing: -0.075em;
+        line-height: 0.76;
+        text-transform: uppercase;
+      }
+
+      .hero-title span {
+        display: block;
+        color: var(--ink);
+      }
+
+      .location-panel {
+        position: relative;
+        z-index: 1;
+        width: min(520px, 50vw);
+        margin-top: clamp(28px, 4vh, 52px);
+        padding: 14px;
+        border: 1px solid var(--paper);
+        background: var(--ink);
+        color: var(--paper);
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .split-flap {
+        position: relative;
+        font-family: "Switzer", "Helvetica Neue", Arial, sans-serif;
+      }
+
+      .split-flap-board {
+        display: grid;
+        grid-template-columns: repeat(13, minmax(0, 1fr));
+        gap: 2px;
+        width: 100%;
+        padding: 4px;
+        border: 1px solid rgba(242, 241, 236, 0.42);
+        background: #090a0b;
+      }
+
+      .split-cell {
+        position: relative;
+        display: grid;
+        min-width: 0;
+        aspect-ratio: 0.72;
+        place-items: center;
+        overflow: hidden;
+        border: 1px solid rgba(242, 241, 236, 0.19);
+        border-radius: 2px;
+        background: #292c2f;
+        color: #ffffff;
+        font-size: clamp(14px, 1.65vw, 24px);
+        font-weight: 600;
+        line-height: 1;
+        transform-style: preserve-3d;
+      }
+
+      .split-cell::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 50%;
+        left: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.48);
+        box-shadow: 0 -1px rgba(255, 255, 255, 0.05);
+      }
+
+      .split-cell.is-flipping {
+        animation: character-flip 120ms cubic-bezier(0.7, 0, 0.3, 1);
+      }
+
+      .split-cell--label {
+        color: var(--blue);
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      @keyframes character-flip {
+        0% { transform: perspective(180px) rotateX(0); }
+        48% { transform: perspective(180px) rotateX(-82deg); }
+        52% { transform: perspective(180px) rotateX(82deg); }
+        100% { transform: perspective(180px) rotateX(0); }
+      }
+
+      .index-section {
+        padding: 72px var(--pad) 96px;
+        border-bottom: 1px solid var(--ink);
+      }
+
+      .index-heading {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        align-items: end;
+        margin-bottom: 64px;
+      }
+
+      .index-heading h2,
+      .about h2 {
+        margin: 0;
+        font-size: clamp(54px, 9vw, 144px);
+        font-weight: 500;
+        letter-spacing: -0.065em;
+        line-height: 0.85;
+        text-transform: uppercase;
+      }
+
+      .index-heading p {
+        width: min(420px, 100%);
+        margin: 0 0 8px auto;
+        font-size: clamp(16px, 1.4vw, 21px);
+        line-height: 1.35;
+      }
+
+      .project-list {
+        border-top: 1px solid var(--ink);
+      }
+
+      .project-row {
+        position: relative;
+        display: grid;
+        grid-template-columns: 70px 1.2fr 1fr 24px;
+        gap: 24px;
+        align-items: center;
+        min-height: 104px;
+        border-bottom: 1px solid var(--ink);
+      }
+
+      .project-row::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        bottom: -1px;
+        left: 0;
+        height: 3px;
+        background: var(--blue-dark);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .project-row--active:hover::after { transform: scaleX(1); }
+
+      .project-arrow {
+        opacity: 0.45;
+        transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1), opacity 300ms ease;
+      }
+
+      .project-row--active:hover .project-arrow {
+        opacity: 1;
+        transform: translate(4px, -4px);
+      }
+
+      .project-number,
+      .project-type {
+        font-size: 11px;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      .project-title {
+        font-size: clamp(28px, 4vw, 56px);
+        font-weight: 500;
+        letter-spacing: -0.04em;
+        text-transform: uppercase;
+      }
+
+      .project-type { color: rgba(17, 19, 21, 0.58); }
+
+      .about {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 610px;
+        border-bottom: 1px solid var(--ink);
+      }
+
+      .about-title,
+      .about-copy { padding: 72px var(--pad); }
+
+      .about-title {
+        border-right: 1px solid var(--ink);
+        background: var(--blue);
+      }
+
+      .about h2 span {
+        display: block;
+        color: transparent;
+        -webkit-text-stroke: 1px var(--ink);
+      }
+
+      .about-copy {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .about-copy p {
+        max-width: 580px;
+        margin: 0;
+        font-size: clamp(24px, 3.2vw, 50px);
+        letter-spacing: -0.035em;
+        line-height: 1.06;
+      }
+
+      .about-meta {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+        max-width: 420px;
+        padding-top: 32px;
+        border-top: 1px solid var(--ink);
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      footer {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 32px;
+        align-items: end;
+        padding: 64px var(--pad) 24px;
+        background: var(--ink);
+        color: var(--paper);
+      }
+
+      .footer-callout {
+        margin: 0;
+        font-size: clamp(46px, 9.5vw, 150px);
+        font-weight: 500;
+        letter-spacing: -0.07em;
+        line-height: 0.78;
+        text-transform: uppercase;
+      }
+
+      .footer-callout span { color: var(--blue); }
+
+      .footer-links {
+        display: flex;
+        gap: 22px;
+        padding-bottom: 4px;
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      @media (max-width: 760px) {
+        .site-header { grid-template-columns: 1fr auto; }
+        .edition { display: none; }
+        .site-nav a:not([aria-current="page"]):not([href="essay-help.html"]):not(:last-child) { display: none; }
+
+        .hero { min-height: 760px; }
+        .hero-field { inset: 38% 0 0 0; border-top: 1px solid var(--ink); border-left: 0; }
+        .hero-title { margin-top: 14vh; font-size: clamp(68px, 24vw, 118px); }
+        .location-panel { width: min(100%, 520px); margin-top: 28px; }
+
+        .index-heading,
+        .about { grid-template-columns: 1fr; }
+
+        .index-heading p { margin: 0; }
+        .project-row { grid-template-columns: 44px 1fr auto; gap: 12px; }
+        .project-type { display: none; }
+
+        .about-title { border-right: 0; border-bottom: 1px solid var(--ink); }
+        .about { min-height: auto; }
+        .about-copy { min-height: 520px; }
+
+        footer { grid-template-columns: 1fr; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after { transition: none !important; }
+        .split-cell { animation: none !important; }
+      }
+    </style>
   </head>
   <body>
-    <h1>Chase's website</h1>
-    <p>hi</p>
+    <header class="site-header">
+      <a class="wordmark" href="index.html" aria-label="Chase Kendall index">CK / INDEX</a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="#top" aria-current="page">Home</a>
+        <a href="essay-help.html">Essay Help</a>
+        <a href="https://github.com/cmkendall" target="_blank" rel="noreferrer">GitHub ↗</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-field" aria-hidden="true">
+          <div class="color-block color-block--blue"></div>
+          <div class="color-block color-block--paper"></div>
+          <div class="color-block color-block--ink"></div>
+        </div>
+        <h1 class="hero-title" id="hero-title">Chase <span>Kendall</span></h1>
+        <div class="location-panel" aria-label="Location">
+          <div class="split-flap">
+            <span class="sr-only">San Francisco and Los Angeles</span>
+            <div class="split-flap-board" aria-hidden="true"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="index-section" id="work" aria-labelledby="work-title">
+        <div class="index-heading">
+          <h2 id="work-title">Things<br>I Make</h2>
+          <p>A growing shelf for projects, half-formed thoughts, useful references, and whatever comes next.</p>
+        </div>
+
+        <div class="project-list" aria-label="Project index">
+          <a class="project-row project-row--active" href="#about">
+            <span class="project-number">01</span>
+            <span class="project-title">This Website</span>
+            <span class="project-type">Digital / ongoing</span>
+            <span class="project-arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="project-row project-row--active" href="essay-help.html">
+            <span class="project-number">02</span>
+            <span class="project-title">Essay Help</span>
+            <span class="project-type">College counseling</span>
+            <span class="project-arrow" aria-hidden="true">↗</span>
+          </a>
+          <div class="project-row" aria-label="Empty project slot">
+            <span class="project-number">03</span>
+            <span class="project-title">—</span>
+            <span class="project-type">Reserved</span>
+            <span class="project-arrow" aria-hidden="true"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="about" id="about" aria-labelledby="about-title">
+        <div class="about-title">
+          <h2 id="about-title">Open<br><span>File</span></h2>
+        </div>
+        <div class="about-copy">
+          <p>I’m Chase Kendall. This is a simple place to collect what I’m making, learning, and paying attention to.</p>
+          <div class="about-meta">
+            <span>File no. CK—001</span>
+            <span>Updated 08 / 2026</span>
+            <span>Format: evolving</span>
+            <span>More soon</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p class="footer-callout">More<br><span>To Come.</span></p>
+      <div class="footer-links">
+        <a class="text-link" href="#top">Top ↑</a>
+        <a class="text-link" href="https://github.com/cmkendall" target="_blank" rel="noreferrer">GitHub ↗</a>
+      </div>
+    </footer>
+    <script>
+      (() => {
+        const board = document.querySelector(".split-flap-board");
+        if (!board) return;
+
+        const cellCount = 13;
+        const label = "LOCATION:";
+        const cities = ["SAN FRANCISCO", "LOS ANGELES"];
+        const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const createCell = (className = "") => {
+          const cell = document.createElement("span");
+          cell.className = `split-cell ${className}`.trim();
+          board.appendChild(cell);
+          return cell;
+        };
+        const labelCells = Array.from({ length: cellCount }, () => createCell("split-cell--label"));
+        const cityCells = Array.from({ length: cellCount }, () => createCell());
+        const pause = (duration) => new Promise((resolve) => window.setTimeout(resolve, duration));
+        const rowText = (text) => text.padEnd(cellCount, " ").slice(0, cellCount);
+
+        let cityIndex = 0;
+        let isTransitioning = false;
+
+        const setInitialBoard = () => {
+          [...rowText(label)].forEach((character, index) => {
+            labelCells[index].textContent = character;
+          });
+          [...rowText(cities[cityIndex])].forEach((character, index) => {
+            cityCells[index].textContent = character;
+          });
+        };
+
+        const flipOnce = (cell, character) => new Promise((resolve) => {
+          cell.classList.remove("is-flipping");
+          void cell.offsetWidth;
+          cell.classList.add("is-flipping");
+          window.setTimeout(() => { cell.textContent = character; }, 58);
+          window.setTimeout(() => {
+            cell.classList.remove("is-flipping");
+            resolve();
+          }, 124);
+        });
+
+        const transitionCity = async () => {
+          if (isTransitioning || reducedMotion) return;
+          isTransitioning = true;
+          const currentCity = rowText(cities[cityIndex]);
+          cityIndex = (cityIndex + 1) % cities.length;
+          const nextCity = rowText(cities[cityIndex]);
+          for (let index = 0; index < cityCells.length; index += 1) {
+            if (currentCity[index] !== nextCity[index]) {
+              const intermediate = alphabet[(index + cityIndex * 7) % alphabet.length];
+              await flipOnce(cityCells[index], intermediate);
+              await flipOnce(cityCells[index], nextCity[index]);
+            }
+            await pause(28);
+          }
+          isTransitioning = false;
+          window.setTimeout(transitionCity, 5200);
+        };
+
+        setInitialBoard();
+        if (!reducedMotion) {
+          window.setTimeout(transitionCity, 5200);
+        }
+      })();
+    </script>
   </body>
 </html>
