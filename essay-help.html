@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="College essay help and counseling from Chase Kendall.">
+    <title>Essay Help — Chase Kendall</title>
+    <link rel="preconnect" href="https://api.fontshare.com">
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,600&display=swap">
+    <style>
+      :root {
+        --paper: #f2f1ec;
+        --ink: #111315;
+        --blue: #add8f2;
+        --blue-dark: #78bce7;
+        --line: rgba(17, 19, 21, 0.22);
+        --pad: clamp(18px, 2.2vw, 34px);
+      }
+
+      * { box-sizing: border-box; }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 62px;
+        background: var(--paper);
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background-color: var(--paper);
+        background-image:
+          linear-gradient(to right, rgba(17, 19, 21, 0.05) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(17, 19, 21, 0.05) 1px, transparent 1px);
+        background-size: 48px 48px;
+        font-family: "Switzer", "Helvetica Neue", Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.55;
+      }
+
+      a { color: inherit; }
+
+      a:focus-visible {
+        outline: 2px solid var(--blue-dark);
+        outline-offset: 4px;
+      }
+
+      .site-header {
+        position: sticky;
+        z-index: 10;
+        top: 0;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        min-height: 62px;
+        padding: 0 var(--pad);
+        border-bottom: 1px solid var(--ink);
+        background: rgba(242, 241, 236, 0.94);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .site-header a { text-decoration: none; }
+
+      .site-nav a[aria-current="page"] {
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 5px;
+      }
+
+      .site-nav {
+        display: flex;
+        gap: clamp(16px, 2vw, 32px);
+      }
+
+      .page-heading {
+        padding: clamp(38px, 5vw, 72px) var(--pad) clamp(30px, 4vw, 52px);
+        background-color: #fbfbf8;
+        background-image: repeating-linear-gradient(
+          -45deg,
+          transparent 0,
+          transparent 20px,
+          rgba(96, 100, 103, 0.22) 20px,
+          rgba(96, 100, 103, 0.22) 21px
+        );
+        border-bottom: 1px solid var(--ink);
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(58px, 9vw, 132px);
+        font-weight: 500;
+        letter-spacing: -0.065em;
+        line-height: 0.82;
+        text-transform: uppercase;
+      }
+
+      .document {
+        background: var(--paper);
+      }
+
+      .document-section {
+        display: grid;
+        grid-template-columns: minmax(210px, 0.36fr) minmax(0, 1fr);
+        border-bottom: 1px solid var(--ink);
+      }
+
+      .document-title {
+        margin: 0;
+        padding: 52px var(--pad);
+        border-right: 1px solid var(--ink);
+        background: var(--blue);
+        font-size: clamp(27px, 3.3vw, 52px);
+        font-weight: 500;
+        letter-spacing: -0.045em;
+        line-height: 0.95;
+        text-transform: uppercase;
+      }
+
+      .document-copy {
+        width: 100%;
+        max-width: 860px;
+        padding: 56px clamp(28px, 6vw, 96px) 72px;
+        background: rgba(242, 241, 236, 0.96);
+        font-size: clamp(17px, 1.25vw, 20px);
+        line-height: 1.65;
+      }
+
+      .document-copy p {
+        max-width: 68ch;
+        margin: 0 0 1.5em;
+      }
+
+      .document-copy p:last-child { margin-bottom: 0; }
+
+      .service + .service {
+        margin-top: 48px;
+        padding-top: 48px;
+        border-top: 1px solid var(--line);
+      }
+
+      .service h3 {
+        margin: 0 0 14px;
+        font-size: clamp(23px, 2vw, 31px);
+        font-weight: 600;
+        letter-spacing: -0.025em;
+        line-height: 1.15;
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 5px;
+      }
+
+      .contact-list {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 9px;
+        font-size: clamp(25px, 3.2vw, 48px);
+        letter-spacing: -0.04em;
+        line-height: 1.1;
+      }
+
+      .contact-list a {
+        text-decoration-thickness: 1px;
+        text-underline-offset: 5px;
+      }
+
+      footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 28px var(--pad);
+        background: var(--ink);
+        color: var(--paper);
+        font-size: 11px;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      footer a { color: var(--blue); }
+
+      @media (max-width: 760px) {
+        .document-section { grid-template-columns: 1fr; }
+
+        .document-title { border-right: 0; border-bottom: 1px solid var(--ink); }
+        .document-copy { padding: 40px var(--pad) 56px; }
+        .contact-list { overflow-wrap: anywhere; }
+        footer { flex-direction: column; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <a href="index.html" aria-label="Chase Kendall index">CK / INDEX</a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="index.html">Home</a>
+        <a href="essay-help.html" aria-current="page">Essay Help</a>
+        <a href="#contacts">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <header class="page-heading">
+        <h1>Essay Help</h1>
+      </header>
+
+      <article class="document" aria-label="College essay help information">
+        <section class="document-section" aria-labelledby="prices-title">
+          <h2 class="document-title" id="prices-title">PRICES</h2>
+          <div class="document-copy">
+            <div class="service">
+              <h3>$15 — Asynchronous Feedback (One Essay)</h3>
+              <p>Send me a draft of an essay you’re working on, and I’ll mark it up with feedback ranging from quick grammar changes to questions about the essay’s overall theme.</p>
+            </div>
+            <div class="service">
+              <h3>$40 — Half Hour Essay Workshop</h3>
+              <p>We’ll both be on a zoom call and work on essays together — the time is yours, so whether you want to focus on one essay or run through multiple is up to you! Also happy to read over essays beforehand so that time isn’t wasted on me reading through them.</p>
+            </div>
+            <p>Interested in something different? Reach out to me and we’ll find a plan that works for everyone!</p>
+          </div>
+        </section>
+
+        <section class="document-section" id="contacts" aria-labelledby="contacts-title">
+          <h2 class="document-title" id="contacts-title">CONTACTS</h2>
+          <div class="document-copy contact-list">
+            <a href="tel:+18582699504">858-269-9504</a>
+            <a href="mailto:chasekendall888@gmail.com">chasekendall888@gmail.com</a>
+          </div>
+        </section>
+
+        <section class="document-section" aria-labelledby="trust-title">
+          <h2 class="document-title" id="trust-title">WHY TRUST ME?</h2>
+          <div class="document-copy">
+            <p>I’ve always loved writing, and won awards in both interscholastic and international competitions. The piece I spent the most time on was the speech that I presented to my graduating class at our awards assembly as one of my duties after being named a co-salutatorian.</p>
+            <p>My goal is to help seniors going through the same process complete their essays with as little stress as possible. I was able to achieve results I was incredibly proud of — receiving acceptances to prestigious universities such as Notre Dame, UNC Chapel Hill, UCLA, and more!</p>
+          </div>
+        </section>
+
+        <section class="document-section" aria-labelledby="about-title">
+          <h2 class="document-title" id="about-title">ABOUT ME</h2>
+          <div class="document-copy">
+            <p>Hi there, my name is Chase Kendall, and I graduated from St. Ignatius College Preparatory this past May. In September, I’ll be heading to UCLA to study Business Economics with a minor in Biology. I play water polo and swim in my free time, and live with my mom, dad, and siblings Max and Brynn.</p>
+          </div>
+        </section>
+      </article>
+    </main>
+
+    <footer>
+      <span>Chase Kendall / Essay Help</span>
+      <a href="index.html">Return to index ↑</a>
+    </footer>
+  </body>
+</html>
