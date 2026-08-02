@@ -101,16 +101,24 @@
       }
 
       .work-field {
-        min-height: 58svh;
+        min-height: 0;
         display: grid;
-        grid-template-columns: minmax(210px, 0.36fr) minmax(0, 1fr);
+        grid-template-columns: minmax(250px, 0.46fr) minmax(0, 1fr);
         border-bottom: 1px solid var(--ink);
         background: var(--paper);
       }
 
+      .work-field--compact {
+        min-height: 0;
+      }
+
+      .work-field--compact .work-title {
+        padding-block: clamp(20px, 2vw, 28px);
+      }
+
       .work-title {
         margin: 0;
-        padding: 52px var(--pad);
+        padding: clamp(22px, 2.4vw, 34px) var(--pad);
         border-right: 1px solid var(--ink);
         background: var(--blue);
         font-size: clamp(27px, 3.3vw, 52px);
@@ -120,10 +128,76 @@
         text-transform: uppercase;
       }
 
+      .work-title--with-context {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+      }
+
+      .work-title__heading {
+        margin: 0;
+        font: inherit;
+        letter-spacing: inherit;
+        line-height: inherit;
+      }
+
+      .work-title__context {
+        margin-top: auto;
+        padding-top: 24px;
+        border-top: 1px solid var(--ink);
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0;
+        line-height: 1.5;
+        text-transform: none;
+      }
+
+      .work-title__context p {
+        margin: 0;
+      }
+
+      .work-title__context p + p {
+        margin-top: 20px;
+      }
+
+      .work-title__context strong {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .work-title__award {
+        display: inline-block;
+        margin: 6px 0;
+        padding: 3px 6px;
+        border: 1px solid var(--ink);
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .work-field--reverse {
+        grid-template-columns: minmax(0, 1fr) minmax(250px, 0.46fr);
+      }
+
+      .work-field--reverse .work-title {
+        order: 2;
+        border-right: 0;
+        border-left: 1px solid var(--ink);
+      }
+
+      .work-field--reverse .essay-panel {
+        order: 1;
+      }
+
       .video-panel {
         display: grid;
         align-items: center;
-        padding: clamp(28px, 5vw, 72px);
+        padding: clamp(18px, 2.4vw, 32px) clamp(28px, 5vw, 72px);
         background-color: rgba(242, 241, 236, 0.96);
         background-image:
           linear-gradient(to right, rgba(17, 19, 21, 0.06) 1px, transparent 1px),
@@ -143,6 +217,225 @@
         width: 100%;
         height: 100%;
         border: 0;
+      }
+
+      .essay-panel {
+        display: grid;
+        place-items: center;
+        padding: clamp(34px, 6vw, 86px);
+        background-color: rgba(242, 241, 236, 0.96);
+        background-image:
+          linear-gradient(to right, rgba(17, 19, 21, 0.06) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(17, 19, 21, 0.06) 1px, transparent 1px);
+        background-size: 48px 48px;
+      }
+
+      .essay-panel--tight {
+        padding-block: clamp(10px, 1.2vw, 16px);
+      }
+
+      .essay-preview-stack {
+        position: relative;
+        width: min(390px, 100%);
+      }
+
+      .essay-preview-stack .essay-preview {
+        width: 100%;
+      }
+
+      .award-polaroid {
+        position: absolute;
+        z-index: 2;
+        top: -3%;
+        right: auto;
+        left: -22%;
+        width: 58%;
+        margin: 0;
+        padding: 8px;
+        border: 1px solid rgba(17, 19, 21, 0.18);
+        background: #fff;
+        pointer-events: none;
+        transform: rotate(-5deg);
+        transform-origin: 50% 8%;
+      }
+
+      .award-polaroid::before {
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 50%;
+        width: 15px;
+        height: 15px;
+        border: 1px solid rgba(17, 19, 21, 0.45);
+        border-radius: 50%;
+        background: var(--blue-dark);
+        content: "";
+        transform: translate(-50%, -50%);
+      }
+
+      .award-polaroid img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 1.56;
+        object-fit: cover;
+      }
+
+      .essay-preview {
+        position: relative;
+        width: min(390px, 100%);
+        aspect-ratio: 1;
+        overflow: hidden;
+        padding: 0;
+        border: 1px solid var(--ink);
+        border-radius: 0;
+        background: #fff;
+        color: var(--ink);
+        cursor: pointer;
+        text-align: left;
+        box-shadow: 12px 12px 0 rgba(17, 19, 21, 0.09);
+        transition: transform 180ms ease, box-shadow 180ms ease;
+      }
+
+      .essay-preview:hover {
+        transform: translate(-3px, -3px);
+        box-shadow: 16px 16px 0 rgba(17, 19, 21, 0.13);
+      }
+
+      .essay-preview:focus-visible {
+        outline: 3px solid var(--blue-dark);
+        outline-offset: 5px;
+      }
+
+      .essay-preview__page {
+        display: block;
+        height: 100%;
+        padding: clamp(26px, 4vw, 48px);
+        font-family: Georgia, "Times New Roman", serif;
+      }
+
+      .essay-preview__title {
+        display: block;
+        margin: 0 0 1.5em;
+        font-size: clamp(16px, 1.6vw, 21px);
+        font-weight: 400;
+        line-height: 1.2;
+        text-align: center;
+      }
+
+      .essay-preview__body {
+        display: block;
+        margin: 0;
+        font-size: clamp(13px, 1.18vw, 17px);
+        line-height: 1.9;
+        text-indent: 2em;
+      }
+
+      .essay-preview__action {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        padding: 12px 16px;
+        border-top: 1px solid var(--ink);
+        background: var(--blue);
+        font-family: "Switzer", "Helvetica Neue", Arial, sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .essay-dialog {
+        width: min(1120px, 92vw);
+        max-width: none;
+        height: 90svh;
+        max-height: none;
+        padding: 0;
+        border: 1px solid var(--ink);
+        background: #fff;
+        color: var(--ink);
+      }
+
+      .essay-dialog[open] {
+        display: flex;
+        flex-direction: column;
+        animation: essay-open 180ms ease-out;
+      }
+
+      .essay-dialog::backdrop {
+        background: rgba(17, 19, 21, 0.74);
+        backdrop-filter: grayscale(1) blur(2px);
+      }
+
+      .essay-dialog__bar {
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        align-items: center;
+        gap: 18px;
+        min-height: 56px;
+        padding: 0 18px;
+        border-bottom: 1px solid var(--ink);
+        background: var(--blue);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .essay-dialog__title {
+        overflow: hidden;
+        margin: 0;
+        font: inherit;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .essay-dialog__link {
+        text-underline-offset: 3px;
+      }
+
+      .essay-dialog__close {
+        display: grid;
+        width: 34px;
+        height: 34px;
+        place-items: center;
+        padding: 0;
+        border: 1px solid var(--ink);
+        border-radius: 0;
+        background: transparent;
+        color: var(--ink);
+        cursor: pointer;
+        font: 500 24px/1 "Switzer", "Helvetica Neue", Arial, sans-serif;
+      }
+
+      .essay-dialog__close:hover {
+        background: var(--ink);
+        color: #fff;
+      }
+
+      .essay-dialog__viewer {
+        min-height: 0;
+        flex: 1;
+        background: #d9d9d5;
+      }
+
+      .essay-dialog__viewer iframe {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+
+      @keyframes essay-open {
+        from {
+          opacity: 0;
+          transform: scale(0.97);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
       }
 
       footer {
@@ -184,17 +477,54 @@
       }
 
       @media (max-width: 760px) {
-        .work-field {
+        .work-field,
+        .work-field--reverse {
           grid-template-columns: 1fr;
         }
 
-        .work-title {
+        .work-title,
+        .work-field--reverse .work-title {
+          order: 0;
           border-right: 0;
+          border-left: 0;
           border-bottom: 1px solid var(--ink);
         }
 
-        .video-panel {
-          padding: 28px var(--pad) 40px;
+        .work-field--reverse .essay-panel {
+          order: 1;
+        }
+
+        .video-panel,
+        .essay-panel {
+          padding: 18px var(--pad);
+        }
+
+        .essay-panel--tight {
+          padding-block: 12px;
+        }
+
+        .award-polaroid {
+          top: -2%;
+          right: auto;
+          left: -2%;
+          width: 54%;
+          padding: 6px;
+          transform: rotate(-4deg);
+        }
+
+        .essay-dialog {
+          width: 100vw;
+          height: 100svh;
+          border: 0;
+        }
+
+        .essay-dialog__bar {
+          grid-template-columns: minmax(0, 1fr) auto;
+          gap: 12px;
+        }
+
+        .essay-dialog__link {
+          display: none;
         }
       }
     </style>
@@ -214,7 +544,12 @@
       </header>
 
       <section class="work-field" aria-labelledby="salutatorian-video-title">
-        <h2 class="work-title" id="salutatorian-video-title">Salutatorian Intro Video</h2>
+        <div class="work-title work-title--with-context">
+          <h2 class="work-title__heading" id="salutatorian-video-title">Salutatorian Intro Video</h2>
+          <div class="work-title__context">
+            <p><strong>Graduation Address Introduction</strong><span class="work-title__award">Co-Salutatorian</span><br>After being selected as co-salutatorians of our graduating class, the other salutatorian and I created the opening film that introduced our address. Together, we wrote, storyboarded, produced, and edited the piece, which played for the audience immediately before we walked onstage. It served as a final creative send-off, closing out our four years of high school before we delivered the salutatorian speech.</p>
+          </div>
+        </div>
         <div class="video-panel">
           <div class="video-frame">
             <iframe
@@ -228,11 +563,107 @@
           </div>
         </div>
       </section>
+
+      <section class="work-field work-field--reverse work-field--compact" aria-labelledby="voices-in-unity-title">
+        <div class="work-title work-title--with-context">
+          <h2 class="work-title__heading" id="voices-in-unity-title">Voices in Unity</h2>
+          <div class="work-title__context">
+            <p><strong>Callaghan Society Essay Contest</strong><span class="work-title__award">Top-three finish · $500 award</span><br>Selected as one of the competition’s top three essays from submissions open to students across my school, earning a $500 prize.</p>
+            <p><strong>Callaghan Essay Prompt</strong>The prompt asked writers to make a persuasive case for collaboration and finding common ground in the face of disagreement, using personal experience, history, literature, film, or contemporary issues. Essays also had to connect those ideas to Admiral Daniel J. Callaghan’s legacy of teamwork.</p>
+          </div>
+        </div>
+        <div class="essay-panel essay-panel--tight">
+          <div class="essay-preview-stack">
+            <button class="essay-preview" type="button" data-dialog="voices-dialog" aria-label="Read Voices in Unity">
+              <span class="essay-preview__page" aria-hidden="true">
+                <span class="essay-preview__title">Voices in Unity</span>
+                <span class="essay-preview__body">Various and differentiating perspectives are intrinsic gears in the machine of collaboration. To advance a community or society in which everyone has the opportunity to participate in government, collaboration is an absolute necessity. The lack of cooperation between people with different views can lead to instability and the concentration of power in the hands of those at the top of the political hierarchy.</span>
+              </span>
+              <span class="essay-preview__action">Read essay</span>
+            </button>
+            <figure class="award-polaroid" aria-label="Callaghan Society Essay Contest award photo">
+              <img src="assets/work/callaghan-award.jpeg" alt="Chase Kendall holding a $500 Callaghan Society Essay Contest award check with event organizers">
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="work-field work-field--compact" aria-labelledby="trapped-in-my-head-title">
+        <div class="work-title work-title--with-context">
+          <h2 class="work-title__heading" id="trapped-in-my-head-title">Trapped in My Head</h2>
+          <div class="work-title__context">
+            <p><strong>2025 NCTE Achievement Awards in Writing</strong><span class="work-title__award">Superior</span><br>National judges evaluated the work for expression of ideas, language use, and unique perspective and voice. I was one of 680 nominated students from 41 states, Washington, D.C., and eight countries.</p>
+            <p><strong>AAW 2025 Writing Prompt</strong>The prompt asked students to explore how literature can heal by helping readers feel seen, understood, or transported into another person’s experience. Writers could respond to books as mirrors, windows, sliding doors, or other forms of representation.</p>
+          </div>
+        </div>
+        <div class="essay-panel essay-panel--tight">
+          <button class="essay-preview" type="button" data-dialog="trapped-dialog" aria-label="Read Trapped in My Head">
+            <span class="essay-preview__page" aria-hidden="true">
+              <span class="essay-preview__title">Trapped in My Head</span>
+              <span class="essay-preview__body">In elementary school, life is idyllic. The colors are brighter, your friends are nicer, and the biggest worry is whether you can remember your Wordly Wise vocabulary for the test after recess. The unfairness of the world isn’t revealed until years later when you start to need other news sources besides your mother and father.</span>
+            </span>
+            <span class="essay-preview__action">Read essay</span>
+          </button>
+        </div>
+      </section>
     </main>
+
+    <dialog class="essay-dialog" id="voices-dialog" aria-labelledby="voices-dialog-title">
+      <header class="essay-dialog__bar">
+        <h2 class="essay-dialog__title" id="voices-dialog-title">Voices in Unity</h2>
+        <a class="essay-dialog__link" href="assets/essays/voices-in-unity-2025.pdf" target="_blank" rel="noopener">Open PDF</a>
+        <button class="essay-dialog__close" type="button" data-close aria-label="Close essay">×</button>
+      </header>
+      <div class="essay-dialog__viewer">
+        <iframe src="assets/essays/voices-in-unity-2025.pdf#view=FitH&amp;navpanes=0" title="Voices in Unity essay"></iframe>
+      </div>
+    </dialog>
+
+    <dialog class="essay-dialog" id="trapped-dialog" aria-labelledby="trapped-dialog-title">
+      <header class="essay-dialog__bar">
+        <h2 class="essay-dialog__title" id="trapped-dialog-title">Trapped in My Head</h2>
+        <a class="essay-dialog__link" href="assets/essays/trapped-in-my-head.pdf" target="_blank" rel="noopener">Open PDF</a>
+        <button class="essay-dialog__close" type="button" data-close aria-label="Close essay">×</button>
+      </header>
+      <div class="essay-dialog__viewer">
+        <iframe src="assets/essays/trapped-in-my-head.pdf#view=FitH&amp;navpanes=0" title="Trapped in My Head essay"></iframe>
+      </div>
+    </dialog>
 
     <footer>
       <span>Chase Kendall / Work</span>
       <a href="index.html">Return to index ↑</a>
     </footer>
+
+    <script>
+      const dialogs = document.querySelectorAll(".essay-dialog");
+
+      document.querySelectorAll("[data-dialog]").forEach((trigger) => {
+        trigger.addEventListener("click", () => {
+          const dialog = document.getElementById(trigger.dataset.dialog);
+          if (!dialog) return;
+          dialog.showModal();
+          document.body.style.overflow = "hidden";
+        });
+      });
+
+      dialogs.forEach((dialog) => {
+        dialog.querySelector("[data-close]").addEventListener("click", () => dialog.close());
+
+        dialog.addEventListener("click", (event) => {
+          const bounds = dialog.getBoundingClientRect();
+          const outside =
+            event.clientX < bounds.left ||
+            event.clientX > bounds.right ||
+            event.clientY < bounds.top ||
+            event.clientY > bounds.bottom;
+          if (outside) dialog.close();
+        });
+
+        dialog.addEventListener("close", () => {
+          document.body.style.overflow = "";
+        });
+      });
+    </script>
   </body>
 </html>
