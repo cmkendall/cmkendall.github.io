@@ -173,6 +173,21 @@
         font-size: 1.2em;
       }
 
+      .vesta-link-arrow-icon {
+        width: 68%;
+        height: 68%;
+        object-fit: contain;
+        filter:
+          brightness(0)
+          saturate(100%)
+          invert(85%)
+          sepia(18%)
+          saturate(1438%)
+          hue-rotate(176deg)
+          brightness(103%)
+          contrast(101%);
+      }
+
       .vesta-link-cell--accent {
         color: var(--blue);
       }
@@ -527,9 +542,13 @@
 
           if (row.arrow) {
             const arrow = document.createElement("span");
+            const arrowIcon = document.createElement("img");
             arrow.className = "vesta-link-arrow";
             arrow.setAttribute("aria-hidden", "true");
-            arrow.textContent = "↗";
+            arrowIcon.className = "vesta-link-arrow-icon";
+            arrowIcon.src = "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/move-up-right.svg";
+            arrowIcon.alt = "";
+            arrow.append(arrowIcon);
             link.append(arrow);
           }
 
