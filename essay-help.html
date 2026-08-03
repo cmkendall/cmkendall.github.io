@@ -45,6 +45,11 @@
         outline-offset: 4px;
       }
 
+      button:focus-visible {
+        outline: 2px solid var(--blue-dark);
+        outline-offset: 4px;
+      }
+
       .site-header {
         position: sticky;
         z-index: 10;
@@ -77,7 +82,7 @@
       }
 
       .page-heading {
-        padding: clamp(38px, 5vw, 72px) var(--pad) clamp(30px, 4vw, 52px);
+        padding: clamp(28px, 3.6vw, 50px) var(--pad) clamp(24px, 3vw, 38px);
         background-color: #fbfbf8;
         background-image: repeating-linear-gradient(
           -45deg,
@@ -110,7 +115,7 @@
 
       .document-title {
         margin: 0;
-        padding: 52px var(--pad);
+        padding: clamp(32px, 3.4vw, 46px) var(--pad);
         border-right: 1px solid var(--ink);
         background: var(--blue);
         font-size: clamp(27px, 3.3vw, 52px);
@@ -120,10 +125,39 @@
         text-transform: uppercase;
       }
 
+      .document-title--with-note {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .document-title__heading {
+        margin: 0;
+        font: inherit;
+        letter-spacing: inherit;
+        line-height: inherit;
+      }
+
+      .document-title__note {
+        margin: 0;
+        padding-top: 14px;
+        border-top: 1px solid var(--ink);
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0;
+        line-height: 1.5;
+        text-transform: none;
+      }
+
+      .document-title__note a {
+        font-weight: 600;
+        text-underline-offset: 3px;
+      }
+
       .document-copy {
         width: 100%;
-        max-width: 860px;
-        padding: 56px clamp(28px, 6vw, 96px) 72px;
+        max-width: 940px;
+        padding: clamp(36px, 3.6vw, 48px) clamp(28px, 5vw, 76px) clamp(40px, 4vw, 54px);
         background: rgba(242, 241, 236, 0.96);
         font-size: clamp(17px, 1.25vw, 20px);
         line-height: 1.65;
@@ -131,25 +165,25 @@
 
       .document-copy p {
         max-width: 68ch;
-        margin: 0 0 1.5em;
+        margin: 0 0 1.15em;
       }
 
       .document-copy p:last-child { margin-bottom: 0; }
 
       .service + .service {
-        margin-top: 48px;
-        padding-top: 48px;
+        margin-top: 30px;
+        padding-top: 30px;
         border-top: 1px solid var(--line);
       }
 
       .price-note {
-        margin-top: 48px;
-        padding-top: 48px;
+        margin-top: 30px;
+        padding-top: 30px;
         border-top: 1px solid var(--line);
       }
 
       .service h3 {
-        margin: 0 0 14px;
+        margin: 0 0 10px;
         font-size: clamp(23px, 2vw, 31px);
         font-weight: 600;
         letter-spacing: -0.025em;
@@ -169,16 +203,67 @@
         line-height: 1.1;
       }
 
-      .contact-list a {
+      .contact-list a,
+      .contact-list button {
         text-decoration-thickness: 1px;
         text-underline-offset: 5px;
+      }
+
+      .contact-list button {
+        appearance: none;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+        font: inherit;
+        letter-spacing: inherit;
+        line-height: inherit;
+        text-align: left;
+        text-decoration-line: underline;
+      }
+
+      .copy-toast {
+        position: fixed;
+        z-index: 20;
+        left: 50%;
+        bottom: clamp(18px, 4vh, 38px);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 11px 14px;
+        border: 1px solid var(--ink);
+        background: #fbfbf8;
+        color: var(--ink);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.09em;
+        line-height: 1;
+        text-transform: uppercase;
+        pointer-events: none;
+        opacity: 0;
+        transform: translate(-50%, 10px);
+        transition: opacity 160ms ease, transform 160ms ease;
+      }
+
+      .copy-toast::before {
+        width: 10px;
+        height: 10px;
+        border: 1px solid var(--ink);
+        background: var(--blue);
+        content: "";
+      }
+
+      .copy-toast.is-visible {
+        opacity: 1;
+        transform: translate(-50%, 0);
       }
 
       footer {
         display: flex;
         justify-content: space-between;
         gap: 24px;
-        padding: 28px var(--pad);
+        padding: 22px var(--pad);
         background: var(--ink);
         color: var(--paper);
         font-size: 11px;
@@ -192,13 +277,15 @@
         .document-section { grid-template-columns: 1fr; }
 
         .document-title { border-right: 0; border-bottom: 1px solid var(--ink); }
-        .document-copy { padding: 40px var(--pad) 56px; }
+        .document-title { padding-block: 28px; }
+        .document-copy { padding: 28px var(--pad) 36px; }
         .contact-list { overflow-wrap: anywhere; }
         footer { flex-direction: column; }
       }
 
       @media (prefers-reduced-motion: reduce) {
         html { scroll-behavior: auto; }
+        .copy-toast { transition: none; }
       }
     </style>
   </head>
@@ -208,7 +295,6 @@
         <a href="index.html">Home</a>
         <a href="essay-help.html" aria-current="page">Essay Help</a>
         <a href="work.html">Work</a>
-        <a href="#contacts">Contact</a>
       </nav>
     </header>
 
@@ -218,8 +304,22 @@
       </header>
 
       <article class="document" aria-label="College essay help information">
+        <section class="document-section" aria-labelledby="trust-title">
+          <div class="document-title document-title--with-note">
+            <h2 class="document-title__heading" id="trust-title">WHY TRUST ME?</h2>
+            <p class="document-title__note">The essays, awards, and salutatorian project mentioned here are available on my <a href="work.html">Work page</a>.</p>
+          </div>
+          <div class="document-copy">
+            <p>My goal is to help seniors going through the college process complete their essays with as little stress as possible – as I just went through the same process! I’m headed to UCLA in the fall, but thanks to my essays, I was also accepted to other notable universities such as Notre Dame and UNC Chapel Hill.</p>
+            <p>I’ve always loved writing, and have won awards in both interscholastic and international competitions.  In fact, one of my UC essays was about my love of the English language and how that manifested in various interests throughout my life.  However, my favorite piece, and the one I’ve spent the most time on, was the speech that I presented to my graduating class after being named our salutatorian.</p>
+          </div>
+        </section>
+
         <section class="document-section" aria-labelledby="prices-title">
-          <h2 class="document-title" id="prices-title">PRICES</h2>
+          <div class="document-title document-title--with-note">
+            <h2 class="document-title__heading" id="prices-title">PRICES</h2>
+            <p class="document-title__note">Interested in working with me, or have questions about timing, scope, or a custom plan? Reach out using the <a href="#contacts">contact information below</a>.</p>
+          </div>
           <div class="document-copy">
             <div class="service">
               <h3>$15 — Asynchronous Feedback (One Essay)</h3>
@@ -235,34 +335,72 @@
           </div>
         </section>
 
-        <section class="document-section" id="contacts" aria-labelledby="contacts-title">
-          <h2 class="document-title" id="contacts-title">CONTACTS</h2>
-          <div class="document-copy contact-list">
-            <a href="tel:+18582699504">858-269-9504</a>
-            <a href="mailto:chasekendall888@gmail.com">chasekendall888@gmail.com</a>
-          </div>
-        </section>
-
-        <section class="document-section" aria-labelledby="trust-title">
-          <h2 class="document-title" id="trust-title">WHY TRUST ME?</h2>
-          <div class="document-copy">
-            <p>My goal is to help seniors going through the same process complete their essays with as little stress as possible – as I just went through the same process! I’m headed to UCLA in the fall, but thanks to my essays, I was also accepted to other notable universities such as Notre Dame and UNC Chapel Hill.</p>
-            <p>I’ve always loved writing, and have won awards in both interscholastic and international competitions.  In fact, one of my UC essays was about my love of the English language and how that manifested in various interests throughout my life.  However, my favorite piece, and the one I’ve spent the most time on, was the speech that I presented to my graduating class after being named our salutatorian.</p>
-          </div>
-        </section>
-
         <section class="document-section" aria-labelledby="about-title">
           <h2 class="document-title" id="about-title">ABOUT ME</h2>
           <div class="document-copy">
             <p>Hi there, my name is Chase Kendall, and I graduated from St. Ignatius College Preparatory this past May. In September, I’ll be heading to UCLA to study Business Economics with a minor in Biology. I play water polo and swim in my free time, and live with my mom, dad, and siblings Max and Brynn.</p>
           </div>
         </section>
+
+        <section class="document-section" id="contacts" aria-labelledby="contacts-title">
+          <h2 class="document-title" id="contacts-title">CONTACTS</h2>
+          <div class="document-copy contact-list">
+            <button type="button" data-copy="858-269-9504" data-copy-label="Phone number" aria-label="Copy phone number">858-269-9504</button>
+            <button type="button" data-copy="chasekendall888@gmail.com" data-copy-label="Email" aria-label="Copy email address">chasekendall888@gmail.com</button>
+          </div>
+        </section>
       </article>
     </main>
+
+    <div class="copy-toast" id="copy-toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
     <footer>
       <span>Chase Kendall / Essay Help</span>
       <a href="index.html">Return to index ↑</a>
     </footer>
+
+    <script>
+      const copyToast = document.querySelector("#copy-toast");
+      let toastTimer;
+
+      const showCopyToast = (message) => {
+        window.clearTimeout(toastTimer);
+        copyToast.textContent = message;
+        copyToast.classList.add("is-visible");
+
+        toastTimer = window.setTimeout(() => {
+          copyToast.classList.remove("is-visible");
+        }, 1800);
+      };
+
+      const copyToClipboard = async (value, label) => {
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(value);
+          } else {
+            const textarea = document.createElement("textarea");
+            textarea.value = value;
+            textarea.setAttribute("readonly", "");
+            textarea.style.position = "fixed";
+            textarea.style.opacity = "0";
+            document.body.append(textarea);
+            textarea.select();
+            textarea.setSelectionRange(0, textarea.value.length);
+            document.execCommand("copy");
+            textarea.remove();
+          }
+
+          showCopyToast(`${label} copied`);
+        } catch {
+          showCopyToast("Copy failed");
+        }
+      };
+
+      document.querySelectorAll("[data-copy]").forEach((button) => {
+        button.addEventListener("click", () => {
+          copyToClipboard(button.dataset.copy, button.dataset.copyLabel);
+        });
+      });
+    </script>
   </body>
 </html>
