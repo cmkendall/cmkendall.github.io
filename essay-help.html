@@ -361,6 +361,26 @@
     </footer>
 
     <script>
+      if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
+      }
+
+      const resetUnanchoredPagePosition = () => {
+        if (window.location.hash) return;
+
+        const root = document.documentElement;
+        const previousScrollBehavior = root.style.scrollBehavior;
+        root.style.scrollBehavior = "auto";
+        window.scrollTo(0, 0);
+
+        window.requestAnimationFrame(() => {
+          window.scrollTo(0, 0);
+          root.style.scrollBehavior = previousScrollBehavior;
+        });
+      };
+
+      window.addEventListener("pageshow", resetUnanchoredPagePosition);
+
       const copyToast = document.querySelector("#copy-toast");
       let toastTimer;
 
