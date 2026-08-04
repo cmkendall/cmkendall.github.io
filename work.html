@@ -428,6 +428,10 @@
         border: 0;
       }
 
+      .essay-dialog__mobile-pages {
+        display: none;
+      }
+
       @keyframes essay-open {
         from {
           opacity: 0;
@@ -523,6 +527,31 @@
         .essay-dialog__link {
           display: none;
         }
+
+        .essay-dialog__viewer {
+          overflow-x: hidden;
+          overflow-y: auto;
+          padding: 8px;
+          -webkit-overflow-scrolling: touch;
+        }
+
+        .essay-dialog__viewer iframe {
+          display: none;
+        }
+
+        .essay-dialog__mobile-pages {
+          display: flex;
+          width: 100%;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .essay-dialog__mobile-pages img {
+          display: block;
+          width: 100%;
+          height: auto;
+          background: #fff;
+        }
       }
     </style>
   </head>
@@ -613,6 +642,12 @@
       </header>
       <div class="essay-dialog__viewer">
         <iframe data-pdf-src="assets/essays/voices-in-unity-2025.pdf" title="Voices in Unity essay" loading="lazy"></iframe>
+        <div class="essay-dialog__mobile-pages" aria-label="Voices in Unity essay pages">
+          <img src="assets/essays/previews/voices-in-unity-page-1.png" width="1224" height="1584" loading="lazy" decoding="async" alt="Voices in Unity, page 1 of 4">
+          <img src="assets/essays/previews/voices-in-unity-page-2.png" width="1224" height="1584" loading="lazy" decoding="async" alt="Voices in Unity, page 2 of 4">
+          <img src="assets/essays/previews/voices-in-unity-page-3.png" width="1224" height="1584" loading="lazy" decoding="async" alt="Voices in Unity, page 3 of 4">
+          <img src="assets/essays/previews/voices-in-unity-page-4.png" width="1224" height="1584" loading="lazy" decoding="async" alt="Voices in Unity, page 4 of 4">
+        </div>
       </div>
     </dialog>
 
@@ -624,6 +659,12 @@
       </header>
       <div class="essay-dialog__viewer">
         <iframe data-pdf-src="assets/essays/trapped-in-my-head.pdf" title="Trapped in My Head essay" loading="lazy"></iframe>
+        <div class="essay-dialog__mobile-pages" aria-label="Trapped in My Head essay pages">
+          <img src="assets/essays/previews/trapped-in-my-head-page-1.png" width="1224" height="1584" loading="lazy" decoding="async" alt="Trapped in My Head, page 1 of 4">
+          <img src="assets/essays/previews/trapped-in-my-head-page-2.png" width="1224" height="1584" loading="lazy" decoding="async" alt="Trapped in My Head, page 2 of 4">
+          <img src="assets/essays/previews/trapped-in-my-head-page-3.png" width="1224" height="1584" loading="lazy" decoding="async" alt="Trapped in My Head, page 3 of 4">
+          <img src="assets/essays/previews/trapped-in-my-head-page-4.png" width="1224" height="1584" loading="lazy" decoding="async" alt="Trapped in My Head, page 4 of 4">
+        </div>
       </div>
     </dialog>
 
@@ -639,10 +680,10 @@
           const dialog = document.getElementById(trigger.dataset.dialog);
           if (!dialog) return;
 
+          const isMobile = window.matchMedia("(max-width: 760px)").matches;
           const pdfFrame = dialog.querySelector("[data-pdf-src]");
-          if (pdfFrame) {
-            const view = window.matchMedia("(max-width: 760px)").matches ? "Fit" : "FitH";
-            const pdfSource = `${pdfFrame.dataset.pdfSrc}#view=${view}&navpanes=0`;
+          if (pdfFrame && !isMobile) {
+            const pdfSource = `${pdfFrame.dataset.pdfSrc}#view=FitH&navpanes=0`;
 
             if (pdfFrame.getAttribute("src") !== pdfSource) {
               pdfFrame.setAttribute("src", pdfSource);
