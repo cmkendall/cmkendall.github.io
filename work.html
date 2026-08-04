@@ -451,10 +451,6 @@
         text-transform: uppercase;
       }
 
-      footer a {
-        color: var(--blue);
-      }
-
       .sr-only {
         position: absolute;
         width: 1px;
@@ -616,7 +612,7 @@
         <button class="essay-dialog__close" type="button" data-close aria-label="Close essay">×</button>
       </header>
       <div class="essay-dialog__viewer">
-        <iframe src="assets/essays/voices-in-unity-2025.pdf#view=FitH&amp;navpanes=0" title="Voices in Unity essay"></iframe>
+        <iframe data-pdf-src="assets/essays/voices-in-unity-2025.pdf" title="Voices in Unity essay" loading="lazy"></iframe>
       </div>
     </dialog>
 
@@ -627,13 +623,12 @@
         <button class="essay-dialog__close" type="button" data-close aria-label="Close essay">×</button>
       </header>
       <div class="essay-dialog__viewer">
-        <iframe src="assets/essays/trapped-in-my-head.pdf#view=FitH&amp;navpanes=0" title="Trapped in My Head essay"></iframe>
+        <iframe data-pdf-src="assets/essays/trapped-in-my-head.pdf" title="Trapped in My Head essay" loading="lazy"></iframe>
       </div>
     </dialog>
 
     <footer>
       <span>Chase Kendall / Work</span>
-      <a href="index.html">Return to index ↑</a>
     </footer>
 
     <script>
@@ -643,6 +638,17 @@
         trigger.addEventListener("click", () => {
           const dialog = document.getElementById(trigger.dataset.dialog);
           if (!dialog) return;
+
+          const pdfFrame = dialog.querySelector("[data-pdf-src]");
+          if (pdfFrame) {
+            const view = window.matchMedia("(max-width: 760px)").matches ? "Fit" : "FitH";
+            const pdfSource = `${pdfFrame.dataset.pdfSrc}#view=${view}&navpanes=0`;
+
+            if (pdfFrame.getAttribute("src") !== pdfSource) {
+              pdfFrame.setAttribute("src", pdfSource);
+            }
+          }
+
           dialog.showModal();
           document.body.style.overflow = "hidden";
         });
